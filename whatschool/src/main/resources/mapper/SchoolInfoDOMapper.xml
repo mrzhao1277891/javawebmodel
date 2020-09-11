@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fivehalf.infras.db.dao.SchoolInfoDOMapper" >
+  <resultMap id="BaseResultMap" type="com.fivehalf.infras.db.entity.SchoolInfoDO" >
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    name, info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from schoolinfo
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from schoolinfo
+    where name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fivehalf.infras.db.entity.SchoolInfoDO" >
+    insert into schoolinfo (name, info)
+    values (#{name,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fivehalf.infras.db.entity.SchoolInfoDO" >
+    insert into schoolinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fivehalf.infras.db.entity.SchoolInfoDO" >
+    update schoolinfo
+    <set >
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fivehalf.infras.db.entity.SchoolInfoDO" >
+    update schoolinfo
+    set info = #{info,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>
